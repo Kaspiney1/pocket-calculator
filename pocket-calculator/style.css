@@ -20,13 +20,15 @@ button {
 }
 
 body {
-  background-color: 	#6495ED
-  text-color: white;
+  background-color:	#6495ED
 }
 
 .Zero {
+  width: 200px
+  height: 100px
 }
 
 .Mods {
+  background:
 
 }
