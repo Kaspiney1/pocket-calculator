@@ -1,39 +1,53 @@
 <!DOCTYPE html>
-
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="pocket-calculator.js"></script>
+    <link rel="stylesheet" type="text/css" href="./calc.css"/>
+    <script type="text/javascript" src="./calc.js"></script>
+    <meta charset="UTF-8"/>
   </head>
-  <body>
-    <center>
-    <button class="Mods">AC</button>
-    <button class="Mods">+/-</button>
-    <button class="Mods">%</button>
-    <button class="operators">÷</button>
-    <div>
-    </div>
-    <button>7</button>
-    <button>8</button>
-    <button>9</button>
-    <button class="operators">x</button>
-    <div>
-    </div>
-    <button>4</button>
-    <button>5</button>
-    <button>6</button>
-    <button class="operators">-</button>
-    <div>
-    </div>
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button class="operators">+</button>
-    <div>
-    </div>
-    <button class="Zero">0</button>
-    <button>.</button>
-    <button>=</button>
-    </center>
+  <body id='gradient'>
+    <table class='center'>
+  <tr>
+    <th colspan='5' id="addition">0</th>
+
+  </tr>
+  <tr>
+    <td align='center'onclick="numbers('7');">7</td>
+    <td align='center'onclick="numbers('8');">8</td>
+    <td align='center'onclick="numbers('9');">9</td>
+    <td align='center'onclick="fourfunction('x');">x</td>
+	<td align='center'onclick="numbers('del');">Del</td>
+  </tr>
+  <tr>
+    <td align='center'onclick="numbers('4');">4</td>
+    <td align='center'onclick="numbers('5');">5</td>
+    <td align='center'onclick="numbers('6');">6</td>
+    <td align='center'onclick="fourfunction('/');">/</td>
+    <td align='center'onclick="fourfunction('x^2');">x^2</td>
+  </tr>
+  <tr>
+    <td align='center'onclick="numbers('1');">1</td>
+    <td align='center'onclick="numbers('2');">2</td>
+    <td align='center'onclick="numbers('3');">3</td>
+    <td align='center'onclick="fourfunction('-');">-</td>
+	<td align='center'onclick="fourfunction('x^3');">x^3</td>
+  </tr>
+  <tr>
+    <td align='center'onclick="numbers('0');">0</td>
+    <td align='center'onclick="fourfunction('.');">.</td>
+    <td align='center'onclick="equals('=');">=</td>
+    <td align='center'onclick="fourfunction('+');">+</td>
+	<td align='center'onclick="fourfunction('x^y');">x^y</td>
+
+
+  </tr>
+  <tr>
+    <td align='center'onclick="numbers('ans');">Ans</td>
+	<td align='center'onclick="fourfunction('%');">%</td>
+	<td align='center'onclick="numbers('negation');">Negation</td>
+	<td align='center'colspan='2' onclick="AC();">AC</td>
+  </tr>
+</table>
   </body>
+
 </html>
