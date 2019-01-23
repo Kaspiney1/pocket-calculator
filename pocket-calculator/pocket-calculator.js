@@ -1,293 +1,249 @@
-var expression='';
-var displayExpression='';
-var symbol=false;
-var decimalZero=false;
-var decimalPoint=true;
-var decimalNum=false;
-var numlength=1;
-var ans='';
-var ansNum=false;
-function fourfunction(operation) {
-  if(operation == '+' && symbol==true) {
-    expression+="+";
-    displayExpression+="+";
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=false;
-    numlength=1;
-    ansNum=false
-  }
-  if(operation=='x' && symbol==true){
-    expression+='*';
-    displayExpression+="x";
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=false;
-	numlength=1;
-	ansNum=false
-  }
-  if(operation == '/' && symbol==true) {
-    expression+="/";
-    displayExpression+="/";
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=false;
-    numlength=1;
-    ansNum=false
-  }
-  if(operation=='-' && symbol==true){
-    expression+='-';
-    displayExpression+="-";
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=false;
-    numlength=1;
-    ansNum=false
-  }
-  if(operation == '%' && symbol==true){
-    expression+='*.01'
-    displayExpression+="%";
-    document.getElementById('addition').innerHTML=displayExpression;
-    ansNum=false
-  }
-  if (operation=='.' && symbol==true && decimalNum==false && ansNum==false){
-    expression+='.'+'0';
-    displayExpression+='.'+'0';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    decimalZero=true;
-    decimalPoint=true;
-    decimalNum=true;
-  }
-  if(operation=='x^2' && symbol==true){
-	displayExpression+='^2';
-	expression+='**2';
-    document.getElementById('addition').innerHTML=displayExpression;
-  }
-  if(operation=='x^3' && symbol==true){
-	displayExpression+='^3';
-	expression+='**3';
-	document.getElementById('addition').innerHTML=displayExpression;
-  }
-  if(operation=='x^y' && symbol==true){
-	displayExpression+='^';
-	expression+='**';
-	document.getElementById('addition').innerHTML=displayExpression;
-	ansNum=false;
-	symbol=false;
-  }
+var executed = false;
+var expressionArray= [];
+var decimalStatInsert = false;
+var piInsertStatus = false;
+var decimalNumInsert = false;
+var firstPercent = false;
+var symbolStatus = false;
+var i = 7;
+var opInserted = false;
+var afterEqualLastSym = false;
+var exponentialAlert;
+var firstNegationStatus = false;
+var negated = false;
+  console.log("varStatus", afterEqualLastSym, opInserted, executed, decimalStatInsert, piInsertStatus, decimalNumInsert);
+// BREAK //
+function insert(num){
+  if(executed == false){
+  document.calc.display.value=""
+  executed = true;
 }
-function numbers(operation){
-  if(decimalZero==true){
-    let r=expression.split('')
-    let q=displayExpression.split('')
-    r.pop();
-    q.pop();
-    expression=r.join('');
-    displayExpression=q.join('')
-    decimalZero=false;
+// BREAK //
+if(num === '*' || num === '/' || num === '+'|| num === '-'){
+  console.log(negated)
+  if(expressionArray[expressionArray.length - 1] == '+' || expressionArray[expressionArray.length - 1] == '-' || expressionArray[expressionArray.length -1 == '*'] || expressionArray[expressionArray.length - 1] == '/'){
+    expressionArray.pop();
+    expressionArray.push(num);
+    opInserted = true;
+    console.log("raw array" , expressionArray);
   }
-
-  if(operation=='del') {
-	  let z=displayExpression.split('');
-	  let r=expression.split('');
-
-	  if(z[z.length-1]=='^'){
-	    z.pop();
-	    r.pop();
-	    r.pop();
-	  }else{
-      let temp=z.pop();
-      let temp2=r.pop();
-      if(Number.isInteger(Number(temp))){
-        symbol=false;
-      }else{
-        symbol=true;
-      }
-    }
-    numlength--;
-	  expression=r.join('');
-	  displayExpression=z.join('')
-	  document.getElementById('addition').innerHTML=displayExpression;
-  }
-  if (operation=="negation"){
-	  let z=displayExpression.split('');
-	  let r=expression.split('');
-
-	  let x=true;
-	  let y=true;
-	  for(let i=displayExpression.length-1;i>=0;i--){
-		  if((displayExpression[i]=='x'||displayExpression[i]=='/'||displayExpression[i]=='+'||displayExpression=='-'||displayExpression[i]=='^') && x==true){
-			  x=false;
-			  var tempArray=[];
-			  for(let j=0; j<=i; j++){
-				  let temp=z.shift();
-				  tempArray[j]=temp;
-			  }
-			  z.unshift('-');
-			  let arrayLength=tempArray.length;
-			  for(let k=0;k<arrayLength;k++){
-				let temp2=tempArray.pop();
-				z.unshift(temp2);
-			  }
-		  }
-	  }
-	  for(let n=expression.length-1; n>=0;n--){
-		if((expression[n]=='*'||expression[n]=='-'||expression[n]=='+'||expression[n]=='/')&& y==true){
-			y=false;
-			var tempArray2=[];
-			for(let m=0;m<=n;m++){
-				let temp=r.shift();
-				tempArray2[m]=temp;
-				console.log(tempArray);
-			}
-			console.log("1.")
-			console.log(r)
-			r.unshift('-');
-			console.log("2.")
-			console.log(r);
-			let arrayLength2=tempArray2.length;
-			for(let s=0;s<arrayLength2;s++){
-				let temp2=tempArray2.pop();
-				r.unshift(temp2);
-			}
-		}
-	  }
-	if(x==true){
-	  z.unshift('-');
-	}
-	if(y==true){
-	  r.unshift('-');
-	}
-	displayExpression=z.join('');
- 	expression=r.join('');
- 	document.getElementById('addition').innerHTML=displayExpression;
-  }
-
-
-  if (operation=='0' && numlength<=9 && ansNum==false){
-    expression+='0';
-    displayExpression+='0';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='1'&& numlength<=9 && ansNum==false){
-    expression+='1';
-    displayExpression+='1';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='2'&& numlength<=9 && ansNum==false){
-    expression+='2';
-    displayExpression+='2';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='3'&& numlength<=9 && ansNum==false){
-    expression+='3';
-    displayExpression+='3';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='4'&& numlength<=9 && ansNum==false){
-    expression+='4';
-    displayExpression+='4';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='5'&& numlength<=9 && ansNum==false){
-    expression+='5';
-    displayExpression+='5';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='6'&& numlength<=9 && ansNum==false){
-    expression+='6';
-    displayExpression+='6';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='7'&& numlength<=9 && ansNum==false){
-    expression+='7';
-    displayExpression+='7';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='8'&& numlength<=9 && ansNum==false){
-    expression+='8';
-    displayExpression+='8';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='9'&& numlength<=9 && ansNum==false){
-    expression+='9';
-    displayExpression+='9';
-    document.getElementById('addition').innerHTML=displayExpression;
-    symbol=true;
-    numlength++;
-  }
-  if (operation=='ans' && ans != '' && symbol==false){
-  expression+='ans';
-  displayExpression+='ans';
-  document.getElementById('addition').innerHTML=displayExpression;
-  symbol=true;
-  decimalNum=false;
-  ansNum=true;
-  }
-}
-function AC(){
-  expression='';
-  displayExpression='';
-  symbol=false;
-  document.getElementById('addition').innerHTML=displayExpression;
-	decimalZero=false;
-	decimalPoint=true;
-	decimalNum=false;
-	numlength=1;
-  ansNum=false;
-}
-function commas(displayExpression){
-  let r=displayExpression.split('');
-  for(let i=displayExpression.length-1;i>=0;i--){
-    if(displayExpression[i]=='x'||displayExpression[i]=='/'||displayExpression[i]=='^'||displayExpression[i]=='-'||displayExpression[i]=='+'){
-
-    }
-  }
-
 
 }
-function equals(operation){
-  let finalExpression=eval(expression);
-  if (operation== '='){
-    if (finalExpression==Infinity||finalExpression==undefined){
-      console.log(finalExpression)
-      document.getElementById('addition').innerHTML="U Hav Made A Grave Mistake";
-    }
-    else if(finalExpression>=1000000000){
-      let exponent=finalExpression.toString().length-1;
-      document.getElementById('addition').innerHTML=finalExpression/(10**(exponent))+'e'+exponent;
-
-    }
-    else if(finalExpression<=-1000000000){
-	  let exponent=finalExpression.toString().length-2;
-	  document.getElementById('addition').innerHTML=finalExpression/(10**(exponent))+'e'+exponent;
-	}
-    else{
-      document.getElementById('addition').innerHTML=finalExpression.toLocaleString();
-    }
-
+// BREAK //
+  if(opInserted == false){
+    document.calc.display.value = document.calc.display.value + num;
+    expressionArray.push(num)
+      console.log("joined array" , expressionArray.join(''))
   }
 
-    ans=finalExpression;
-    expression='';
-    displayExpression='';
-    finalExpression='';
-    ansNum=false;
-    symbol=false;
+  if(Number(document.calc.display.value.length) <= 10){
+    document.calc.display.value = document.calc.display.value
+  }else{
+    document.getElementById("buttonNum0").disabled = true;
+    document.getElementById("buttonNum1").disabled = true;
+    document.getElementById("buttonNum2").disabled = true;
+    document.getElementById("buttonNum3").disabled = true;
+    document.getElementById("buttonNum4").disabled = true;
+    document.getElementById("buttonNum5").disabled = true;
+    document.getElementById("buttonNum6").disabled = true;
+    document.getElementById("buttonNum7").disabled = true;
+    document.getElementById("buttonNum8").disabled = true;
+    document.getElementById("buttonNum9").disabled = true;
+    document.getElementById("decimalButton").disabled = true;
+    document.getElementById("piButton").disabled = true;
+  }
+  // BREAK //
+  if(decimalNumInsert == false){
+ let commaInput = Number(document.calc.display.value.split(",").join("")).toLocaleString();
+ document.calc.display.value = commaInput;
+  }
+}
+function clearCalc(){
+  afterEqualLastSym = false;
+  opInserted = false
+  document.calc.display.value=0;
+   i = i = 7;
+   console.log("iOnClearCalc", i)
+  executed = false;
+  decimalStatInsert = false;
+  piInsertStatus = false;
+  decimalNumInsert = false;
+  firstNegationStatus = false
+  console.log("status", afterEqualLastSym, opInserted, executed, decimalStatInsert, piInsertStatus, decimalNumInsert)
+    expressionArray = [];
+    // BREAK //
+    document.getElementById("buttonNum0").disabled = false;
+    document.getElementById("buttonNum1").disabled = false;
+    document.getElementById("buttonNum2").disabled = false;
+    document.getElementById("buttonNum3").disabled = false;
+    document.getElementById("buttonNum4").disabled = false;
+    document.getElementById("buttonNum5").disabled = false;
+    document.getElementById("buttonNum6").disabled = false;
+    document.getElementById("buttonNum7").disabled = false;
+    document.getElementById("buttonNum8").disabled = false;
+    document.getElementById("buttonNum9").disabled = false;
+    document.getElementById("piButton").disabled = false;
+    document.getElementById("decimalButton").disabled = false;
+}
+function clearOnOp(){
+  opInserted = false
+   i = i = 7;
+   console.log("iOnClearOP", i)
+  symbolStatus = false
+  firstPercent = false;
+  document.calc.display.value= 0
+  executed = false;
+  decimalStatInsert = false;
+  piInsertStatus = false;
+  decimalNumInsert = false;
+  firstNegationStatus = true;
+  // BREAK //
+  document.getElementById("buttonNum0").disabled = false;
+  document.getElementById("buttonNum1").disabled = false;
+  document.getElementById("buttonNum2").disabled = false;
+  document.getElementById("buttonNum3").disabled = false;
+  document.getElementById("buttonNum4").disabled = false;
+  document.getElementById("buttonNum5").disabled = false;
+  document.getElementById("buttonNum6").disabled = false;
+  document.getElementById("buttonNum7").disabled = false;
+  document.getElementById("buttonNum8").disabled = false;
+  document.getElementById("buttonNum9").disabled = false;
+ document.getElementById("piButton").disabled = false;
+  document.getElementById("decimalButton").disabled = false;
+}
+function equal(){
+  negated = false;
+  symbolStatus = false
+  firstPercent = false;
+  piInsertStatus = false;
+  afterEqualLastSym = true;
 
+
+  // BREAK //
+  document.getElementById("decimalButton").disabled = true;
+  document.getElementById("buttonNum0").disabled = true;
+  document.getElementById("buttonNum1").disabled = true;
+  document.getElementById("buttonNum2").disabled = true;
+  document.getElementById("buttonNum3").disabled = true;
+  document.getElementById("buttonNum4").disabled = true;
+  document.getElementById("buttonNum5").disabled = true;
+  document.getElementById("buttonNum6").disabled = true;
+  document.getElementById("buttonNum7").disabled = true;
+  document.getElementById("buttonNum8").disabled = true;
+  document.getElementById("buttonNum9").disabled = true;
+  document.getElementById("piButton").disabled = true;
+  // BREAK //
+  let caclEvaluated= eval(expressionArray.join(''));
+  if(expressionArray.join(",").includes("e")){
+     exponentialAlert = true;
+  }
+  console.log(exponentialAlert)
+
+    expressionArray = [];
+    expressionArray.push(caclEvaluated)
+    console.log("evaluated raw", caclEvaluated)
+  if(caclEvaluated > 999999999 || caclEvaluated < -999999999){
+    document.calc.display.value = caclEvaluated.toExponential(9)
+  }else{
+    document.calc.display.value=caclEvaluated.toLocaleString("en")
+  }
+  if(exponentialAlert == true){
+    document.calc.display.value = caclEvaluated
+  }
+
+// BREAK //
+  if(document.calc.display.value === "Infinity" || document.calc.display.value === "∞" || document.calc.display.value === "NaN") {
+    document.calc.display.value = "ERROR";
+  }
+}
+function numberNegation(){
+  document.calc.display.value = document.calc.display.value.split(",").join('')
+  let numsCountNeg = document.calc.display.value.length
+  document.calc.display.value = document.calc.display.value * -1
+  let negValue = document.calc.display.value
+  document.calc.display.value = Number(document.calc.display.value.split(",").join('')).toLocaleString();
+  if(firstNegationStatus == false){
+    expressionArray[expressionArray.length - expressionArray.length ]= expressionArray[expressionArray.length - expressionArray.length] *-1
+    console.log("negatedNumber" , expressionArray)
+    firstNegationStatus = true;
+    negated = true;
+  }else {
+    let whereToNegate = expressionArray.length - numsCountNeg
+    if(expressionArray.length >= whereToNegate){
+      expressionArray.pop();
+      negated = true;
+    }
+
+    expressionArray.push(negValue)
+  }
+}
+
+function numberPercentage(){
+  document.calc.display.value = document.calc.display.value.split(",").join("")
+if(afterEqualLastSym == false){
+  if(firstPercent == false){
+    let numsCount = document.calc.display.value.length
+    numsCount = numsCount -1
+    console.log("nums", numsCount)
+  let amountToBeRemoved = expressionArray.length - numsCount
+  //while loop
+  while(expressionArray.length >= amountToBeRemoved){
+    expressionArray.pop();
+  }
+  //
+  document.calc.display.value = Number(document.calc.display.value) / 100
+expressionArray[amountToBeRemoved] = document.calc.display.value
+  console.log(expressionArray)
+  firstPercent = true;
+  //end of if
+}else{
+ let numsCount2 = document.calc.display.value.length
+ numsCount2 = numsCount2 - i
+  console.log("nums2", numsCount2)
+  let amountToBeRemoved2 = expressionArray.length - numsCount2
+expressionArray.splice(expressionArray.length -1)
+  document.calc.display.value = document.calc.display.value / 100
+  expressionArray.push(document.calc.display.value)
+console.log("array", expressionArray)
+console.log("calcDisplay", document.calc.display.value)
+//BREAK//
+  if(document.calc.display.value>= 0.9999999){
+    let expon= Number(document.calc.display.value)
+    console.log(typeof expon);
+    document.calc.display.value = expon.toExponential(9)
+  }
+  i = i+2;
+  console.log("percentaged array", expressionArray)
+}
+}else{
+  document.calc.display.value = document.calc.display.value / 100
+  expressionArray = []
+  expressionArray.push(document.calc.display.value)
+  let expon= Number(document.calc.display.value)
+  console.log(typeof expon);
+  if(document.calc.display.value>= 0.9999999){
+  document.calc.display.value = expon.toExponential(9)
+}
+}
+}
+
+
+function decimalInsert(num){
+  if(decimalStatInsert == false){
+    document.calc.display.value = document.calc.display.value + num
+    expressionArray.push(num)
+    console.log("decimal array", expressionArray)
+    decimalStatInsert = true;
+    decimalNumInsert = true;
+    document.getElementById("decimalButton").disabled = true;
+  }
+}
+function piInsert(num){
+  if(piInsertStatus == false){
+    document.calc.display.value = ''
+    document.calc.display.value = document.calc.display.value + num
+    expressionArray.push(num)
+    console.log("array with PI", expressionArray)
+    piInsertStatus = true;
+  }
 }
