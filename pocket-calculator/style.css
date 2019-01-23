@@ -1,6 +1,6 @@
 #addition{
-  font-size: 35px;
-  color: gray;
+  font-size: 32px;
+  color: white;
 }
 table {
   border-collapse: collapse;
@@ -12,14 +12,14 @@ table.center {
     margin-right:auto;
 }
 td {
-  width:80px;
-  font-size:35px;
-  background-color: blue;
+  width:100px;
+  font-size:20px;
+  background-color: white;
   border-radius: 20px;
 }
 
 tr {
-  height:80px;
+  height:100px;
 }
 th {
   border-top: 1px solid white;
@@ -27,7 +27,7 @@ th {
   border-left: 1px solid white;
 }
 td:hover{
-  background-color: gray;
+  background-color: lightgreen;
 }
 #gradient {
   background-color: black;
