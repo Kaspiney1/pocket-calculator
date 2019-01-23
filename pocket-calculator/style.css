@@ -96,26 +96,26 @@ button:hover {
 }
 
 .calc-buttons{
-  width:150px;
-  height: 150px;
+  width:130px;
+  height: 130px;
   background-color: #EBE9E9;
   color: black;
-  border: 2px solid black;
+  border: 2px solid orange;
   font-size: 48px;
   font-family: sans-serif;
 }
 .zero-button{
-  width:301px;
-  height: 150px;
+  width:281px;
+  height: 130px;
   background-color: #EBE9E9;
   color: black;
-  border: 2px solid black;
+  border: 2px solid orange;
   font-size: 48px;
   font-family: sans-serif;
 }
 .function-buttons{
-  width:150px;
-  height: 150px;
+  width:130px;
+  height: 130px;
   background-color: orange;
   color: black;
   border: 2px solid black;
@@ -123,8 +123,8 @@ button:hover {
   font-family: sans-serif;
 }
 .clear-button{
-  width:150px;
-  height: 150px;
+  width:130px;
+  height: 130px;
   background-color: #E8431E;
   color: black;
   border: 2px solid black;
